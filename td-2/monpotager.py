@@ -117,7 +117,7 @@ if __name__ == '__main__':
     #maPremiereZoneLegume1 = ZoneLegumes(10, 10)
     #primeur.ajouteZone(maPremiereZoneLegume1)
 
-    patate = Legume("patate")
+    patate = Legumetest("patate")
     radis = Legume("radis")
     carotte = Legume("carotte")
     
