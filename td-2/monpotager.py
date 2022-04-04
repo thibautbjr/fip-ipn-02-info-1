@@ -57,7 +57,7 @@ class Fruit():
         self._nom = nom
         print("fruit %s créé avec succès!" % self._nom)
 
-class Legume():
+class Legumetest():
 
     def __init__(self, nom):
         self._nom = nom
