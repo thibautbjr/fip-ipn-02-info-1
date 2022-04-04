@@ -42,6 +42,10 @@ class Zone():
         self._longueur = longueur
 
     @property
+    def aire(self):
+        return self.largeur * self.largeur
+
+    @property
     def largeur(self):
         return self._largeur
 
@@ -82,6 +86,20 @@ class Potager(Zone):
 
         raise Exception("instance %s non ajoutée, la zone n'existe pas!" % fruitOuLegume._nom)
 
+    def _verificationAireAvantAjout(self, zone):
+        if isinstance(zone, Zone) == False:
+            raise ArgumentTypeError
+
+        aireZones = 0 
+        for z in self._zones:
+            aireZones += z.aire
+
+        if aireZones + zone.aire > self.aire:
+            raise Exception("nous ne pouvons pas ajouter la zone, plus d'espace disponible")
+        else:
+            self._zones.append(zone)
+            print("zone %s ajoutée!" % zone._nom)
+
     def _ajouteZone(self, zone):
         if isinstance(zone, Zone) == False:
             raise ArgumentTypeError
@@ -90,16 +108,14 @@ class Potager(Zone):
             raise Exception('trop de zones !')
 
         if len(self._zones) == 0:
-            self._zones.append(zone)
-            print("zone %s ajoutée" % zone._nom)
+            self._verificationAireAvantAjout(zone)
             return
         
         filtered = filter(lambda z: isinstance(z, type(zone)), self._zones)
         if len(list(filtered)) > 0:
             raise Exception('meme zone en cours d\'ajout! %s' % type(zone))
         else:
-            self._zones.append(zone)
-            print("zone %s ajoutée" % zone._nom)
+            self._verificationAireAvantAjout(zone)
 
 class ZoneLegumes(Zone):
     _nom = "Mes Legumes"
@@ -132,14 +148,17 @@ class Legume():
 if __name__ == '__main__':
     primeur = Primeur()
 
-    monPremierPotager = Potager(50, 50)
+    monPremierPotager = Potager(10, 10)
+    print("aire de mon potager %d" % monPremierPotager.aire)
     primeur.entreDansUnPotager(monPremierPotager)
 
 
     maPremiereZoneFruit1 = ZoneFruits(10, 10)
+    print("aire de ma zone fruit %d" % maPremiereZoneFruit1.aire)
     primeur.ajouteZone(maPremiereZoneFruit1)
 
     maPremiereZoneLegume1 = ZoneLegumes(10, 10)
+    print("aire de ma zone legume %d" % maPremiereZoneLegume1.aire)
     primeur.ajouteZone(maPremiereZoneLegume1)
 
     patate = Legume("patate")
