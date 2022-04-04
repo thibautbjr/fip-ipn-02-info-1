@@ -1,8 +1,13 @@
 
+from argparse import ArgumentTypeError
+
+from sympy import false
+
+
 class Primeur():
 
     _nom = ""
-    _portager = []
+    _potager = []
 
     def __init__(self, nom = "Gerard"):
         self._nom = nom
@@ -15,11 +20,32 @@ class Primeur():
         raise NotImplementedError
 
     def ajouteZone(self, zone):
-        raise NotImplementedError
+        if isinstance(zone, Zone) == False:
+            raise ArgumentTypeError
+        
+        if len(self._potager) >= 2:
+            raise Exception('trop de zones !')
 
+        if len(self._potager) == 0:
+            self._potager.append(zone)
+            print("zone %s ajoutée" % zone._nom)
+            return
+        
+        filtered = filter(lambda z: isinstance(z, type(zone)), self._potager)
+        if len(list(filtered)) > 0:
+            raise Exception('meme zone en cours d\'ajout! %s' % type(zone))
+        else:
+            self._potager.append(zone)
+            print("zone %s ajoutée" % zone._nom)
+            
 class Zone():
+
     _largeur = 0
     _longueur = 0
+
+    def __init__(self, largeur, longueur):
+        self._largeur = largeur
+        self._longueur = longueur
 
     @property
     def largeur(self):
@@ -42,14 +68,14 @@ class ZoneLegumes(Zone):
     _legumes = []
 
     def __init__(self, largeur, longueur):
-        super().__init__(self, largeur, longueur)
+        super().__init__(largeur, longueur)
 
 class ZoneFruits(Zone):
     _nom = "Mes Fruits"
     _fruits = []
 
     def __init__(self, largeur, longueur):
-        super().__init__(self, largeur, longueur)
+        super().__init__(largeur, longueur)
 
 class Fruit():
 
@@ -67,3 +93,12 @@ class Legume():
 ### MAIN ###
 if __name__ == '__main__':
     primeur = Primeur()
+    
+    maPremiereZoneFruit1 = ZoneFruits(10, 10)
+    primeur.ajouteZone(maPremiereZoneFruit1)
+
+    maPremiereZoneLegume1 = ZoneLegumes(10, 10)
+    primeur.ajouteZone(maPremiereZoneLegume1)
+
+    #maPremiereZoneFruit2 = ZoneFruits(10, 10)
+    #primeur.ajouteZone(maPremiereZoneFruit2)
