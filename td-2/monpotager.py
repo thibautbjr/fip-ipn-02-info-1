@@ -14,7 +14,24 @@ class Primeur():
         print("bonjour je m'appelle %s " % self._nom)
 
     def plante(self, fruitOuLegume):
-        raise NotImplementedError
+        if isinstance(fruitOuLegume, (Fruit, Legume)) == False:
+            raise ArgumentTypeError
+        
+        zoneLegume = list(filter(lambda z: isinstance(z, ZoneLegumes), self._potager))
+        zoneFruit = list(filter(lambda z: isinstance(z, ZoneFruits), self._potager))
+
+        if isinstance(fruitOuLegume, Fruit) and len(zoneFruit) > 0:
+            zoneFruit[0]._fruits.append(fruitOuLegume)
+            print("fruit %s ajouté dans la zone %s" % (fruitOuLegume._nom, zoneFruit[0]._nom))
+            return
+        
+        if isinstance(fruitOuLegume, Legume) and len(zoneLegume) > 0:
+            zoneLegume[0]._legumes.append(fruitOuLegume)
+            print("legume %s ajouté dans la zone %s" % (fruitOuLegume._nom, zoneLegume[0]._nom))
+            return
+
+        raise Exception("instance %s non ajoutée, la zone n'existe pas!" % fruitOuLegume._nom)
+            
 
     def arroseZone(self, zone):
         raise NotImplementedError
@@ -97,8 +114,18 @@ if __name__ == '__main__':
     maPremiereZoneFruit1 = ZoneFruits(10, 10)
     primeur.ajouteZone(maPremiereZoneFruit1)
 
-    maPremiereZoneLegume1 = ZoneLegumes(10, 10)
-    primeur.ajouteZone(maPremiereZoneLegume1)
+    #maPremiereZoneLegume1 = ZoneLegumes(10, 10)
+    #primeur.ajouteZone(maPremiereZoneLegume1)
 
-    #maPremiereZoneFruit2 = ZoneFruits(10, 10)
-    #primeur.ajouteZone(maPremiereZoneFruit2)
+    patate = Legume("patate")
+    radis = Legume("radis")
+    carotte = Legume("carotte")
+    
+    mangue = Fruit("mangue")
+
+    primeur.plante(mangue)
+    print(maPremiereZoneFruit1._fruits)
+
+    primeur.plante(patate)
+    #primeur.plante(radis)
+    #primeur.plante(carotte)
