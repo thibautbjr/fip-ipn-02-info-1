@@ -1,5 +1,5 @@
-//test
-class Primeur():
+
+class Primeurthib():
 
     nom = ""
 
@@ -8,6 +8,6 @@ class Primeur():
         print("bonjour je m'appelle: " + self.nom)
 
 # Constructeurs
-primeur1 = Primeur()
-primeur2 = Primeur("Popo")
+primeur1 = Primeurthib()
+primeur2 = Primeurthib("Popo")
 
