@@ -161,7 +161,7 @@ if __name__ == '__main__':
     print("aire de ma zone legume %d" % maPremiereZoneLegume1.aire)
     primeur.ajouteZone(maPremiereZoneLegume1)
 
-    patate = Legumetest("patate")
+    patate = Legume("patate")
     radis = Legume("radis")
     carotte = Legume("carotte")
     
