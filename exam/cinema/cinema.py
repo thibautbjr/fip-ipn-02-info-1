@@ -17,7 +17,6 @@ class Billet():
     def type(self):
         return self._type
 
-
 class Film():
     _nom = ""
     _affiche = ""
@@ -35,6 +34,10 @@ class Film():
     @property
     def horaires(self):
         return self._listeHoraire
+
+    @property
+    def affiche(self):
+        return self._affiche
 
 
 class Borne():

@@ -28,7 +28,16 @@ class TesterMaBorne(unittest.TestCase):
     def test_contructor_typeerror(self):
         """Test constructeur TypeError"""
         self.assertRaises(TypeError, cinema.Borne, "Top Gun", "Indiana Jones")
-        
+
+class TesterMonFilm(unittest.TestCase):
+    """ Classe de test. Test Film."""
+    
+    def test_constructor_nominal(self):
+        """Test constructeur nominal"""
+        film = cinema.Film(nom="Top Gun", affiche="affiche de top gun", horaires=["10:40", "13:00", "16h30","20:10"])
+        self.assertEqual(film.nom, "Top Gun")
+        self.assertEqual(film.affiche, "affiche de top gun")
+        self.assertEqual(film.horaires, ["10:40", "13:00", "16h30","20:10"])
 
 if __name__ == '__main__':
     unittest.main()
