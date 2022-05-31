@@ -1,7 +1,6 @@
 from argparse import ArgumentError, ArgumentTypeError
 from enum import Enum
 
-total=0
 
 class Tailleboisson(Enum):
     Large = 0
@@ -52,7 +51,7 @@ class Barman():
 
     @property
     def facture(self):
-        global total
+        total = 0
         prix = 3
         for boisson in self._Tailleboissonchoisie:
             if boisson.type == Tailleboisson.Large:
@@ -127,7 +126,6 @@ class Barman():
         self._estValidee = False
 
     def payer(self, somme):
-        global total
         if not self.estValidee:
             raise BaseException("command must be confirmed!")
 
@@ -164,10 +162,10 @@ if __name__ == '__main__':
         print("- %s : %s / %s€" % (boisson.nom, ", ".join(ingre for ingre in boisson.ingrédients), boisson.prix))
 
     # selection boisson
-    boisson = initcarte[3]
-    boissonchoisie = barmen.selectionnerBoisson(boisson)
+    boisson = boissons.pop(0)
+    ingredients = boisson.ingrédients.pop()
+    boissonchoisie = barmen.selectionnerBoisson(boisson, ingredients)
     print("L'acheteur a séléctionné sa boisson ? %s" % boissonchoisie)
-    print("Le jus choisi est:"% boisson)
 
     # selection taille de la boisson
     taille = list()
