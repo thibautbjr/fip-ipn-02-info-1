@@ -52,7 +52,7 @@ class Barman():
     @property
     def facture(self):
         total = 0
-        prix = 3
+        prix = 5
         for boisson in self._Tailleboissonchoisie:
             if boisson.type == Tailleboisson.Large:
                 total += (prix+1)
@@ -153,6 +153,7 @@ if __name__ == '__main__':
 
     # init barmen
     barmen= Barman(initcarte)
+    print("bonjour")
     print("Le barmen est prêt a vous servir!")
 
     # consultation
@@ -162,10 +163,11 @@ if __name__ == '__main__':
         print("- %s : %s / %s€" % (boisson.nom, ", ".join(ingre for ingre in boisson.ingrédients), boisson.prix))
 
     # selection boisson
-    boisson = boissons.pop(0)
+    boisson = initcarte[2]
     ingredients = boisson.ingrédients.pop()
     boissonchoisie = barmen.selectionnerBoisson(boisson, ingredients)
     print("L'acheteur a séléctionné sa boisson ? %s" % boissonchoisie)
+    print("Le jus choisi est:" , boisson.nom)
 
     # selection taille de la boisson
     taille = list()
