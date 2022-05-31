@@ -119,6 +119,7 @@ class Barman():
             self._estValidee = False
         return self._estValidee
 
+
     def annulerCommande(self):
         self._Tailleboissonchoisie = list()
         self._Boissonselectionnee = None
